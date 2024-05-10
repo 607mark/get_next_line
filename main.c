@@ -10,6 +10,9 @@ int main(void)
 
 	count = 0;
 	fd = open("example.txt", O_RDONLY);
+	if (fd == -1)
+		return (1);
+	printf("fd = %d\n", fd);
 	while (1)
 	{
 		next_line = get_next_line(fd);
@@ -17,6 +20,7 @@ int main(void)
 			break;
 		count++;
 		printf("[%d]:%s\n", count, next_line);
+		free(next_line);
 		next_line = NULL;
 	}
 	//close(fd);
