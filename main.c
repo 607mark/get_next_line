@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <fcntl.h>
 #include "get_next_line.h"
 
@@ -12,14 +11,12 @@ int main(void)
 	fd = open("example.txt", O_RDONLY);
 	if (fd == -1)
 		return (1);
-	printf("fd = %d\n", fd);
 	while (1)
 	{
 		next_line = get_next_line(fd);
 		if (!next_line)
 			break;
 		count++;
-		printf("[%d]:%s\n", count, next_line);
 		free(next_line);
 		next_line = NULL;
 	}
