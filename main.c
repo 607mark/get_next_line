@@ -14,7 +14,7 @@ int main(void)
 	next_line = get_next_line(fd);
 	printf("%s\n", next_line);	
 	//close(fd);
-//	next_line = get_next_line(fd);
-//	printf("%s", next_line);	
+	next_line = get_next_line(fd);
+	printf("%s", next_line);	
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:02:46 by mshabano          #+#    #+#             */
-/*   Updated: 2024/05/12 18:14:32 by mshabano         ###   ########.fr       */
+/*   Updated: 2024/05/12 20:12:38 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,35 @@ char *get_next_line(int fd)
 	ssize_t bytes;
 
 	buffer = malloc(BUFFER_SIZE + 1);
-	if (!buffer)
+	line = NULL;
+	nl_p = NULL;
+	if (fd < 0 || !buffer)
 		return (0);
-	buffer[BUFFER_SIZE] = '\0';
-	line = ft_strdup("");
-	if (fd < 0)
-		return (0);
-	while (!nl_p)
+	while (nl_p == NULL)
 	{
-		if (*buffer != '\0')
-			ft_strjoin(line, buffer);
-		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (ft_strchr(buffer, '\n'))
-		{
-			nl_p = ft_strchr(buffer, '\n');
+		nl_p = ft_strchr(buffer, '\n');
+		if (nl_p)
 			*nl_p = '\0';
-			ft_strjoin(line, buffer);
-			buffer = ft_strdup(nl_p + 1);
-			return (line);
+		line = ft_strjoin(line, buffer);
+		if (!line)
+			return (0);
+		ft_bzero(buffer, BUFFER_SIZE + 1);
+		bytes = read(fd, buffer, BUFFER_SIZE);
+		if (bytes < 0)
+			return (0);
+		else if (bytes == 0)
+		{
+			if (*line == '\0')
+				return (0);
+			else
+				return (line);
 		}
+		nl_p = ft_strchr(buffer, '\n');
+		*nl_p = '\0';
 	}
-	//nl_p = ft_strchr(buffer, '\n');
+	line = ft_strjoin(line, buffer);
+	if (!line)
+		return (0);
+	buffer = ft_strdup(nl_p + 1);
 	return(line);
 }
