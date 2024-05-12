@@ -6,50 +6,40 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:02:46 by mshabano          #+#    #+#             */
-/*   Updated: 2024/05/10 20:12:24 by mshabano         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:14:32 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void print_newline(char *buffer)
-{
-	char c;
-
-	while (*buffer && *buffer != '\n')
-	{
-		if (*buffer == '\n')
-		{
-			write(1, "\\", 1);
-		}
-		else
-		{
-			c = *buffer;
-			write(1, &c, 1);
-		}
-		buffer++;
-	}
-}
-
-static char *read_file(int fd)
-{
-	int bytes_read;
-	char *buffer;
-
-	buffer = ft_calloc (BUFFER_SIZE + 1, sizeof(char));
-	if (!buffer)
-		return (NULL);
-	bytes_read = read(fd, buffer, BUFFER_SIZE);
-	print_newline(buffer);
-	if (bytes_read <= 0)
-		return (free(buffer), NULL);
-	return (buffer);
-}
-
 char *get_next_line(int fd)
 {
-	char *buff;
+	static char *buffer;
+	char *line;
+	char *nl_p;
+	ssize_t bytes;
 
-	buff = read_file(fd);
-	return (buff);
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return (0);
+	buffer[BUFFER_SIZE] = '\0';
+	line = ft_strdup("");
+	if (fd < 0)
+		return (0);
+	while (!nl_p)
+	{
+		if (*buffer != '\0')
+			ft_strjoin(line, buffer);
+		bytes = read(fd, buffer, BUFFER_SIZE);
+		if (ft_strchr(buffer, '\n'))
+		{
+			nl_p = ft_strchr(buffer, '\n');
+			*nl_p = '\0';
+			ft_strjoin(line, buffer);
+			buffer = ft_strdup(nl_p + 1);
+			return (line);
+		}
+	}
+	//nl_p = ft_strchr(buffer, '\n');
+	return(line);
 }
