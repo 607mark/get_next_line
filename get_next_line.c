@@ -6,7 +6,7 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:02:46 by mshabano          #+#    #+#             */
-/*   Updated: 2024/05/12 20:12:38 by mshabano         ###   ########.fr       */
+/*   Updated: 2024/05/12 20:23:04 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,27 @@ char *get_next_line(int fd)
 		ft_bzero(buffer, BUFFER_SIZE + 1);
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes < 0)
+		{
+			free(line);
+			free(nl_p);
+			free(buffer);
 			return (0);
+		}
 		else if (bytes == 0)
 		{
 			if (*line == '\0')
+			{
+			free(line);
+			free(nl_p);
+			free(buffer);
 				return (0);
+			}
 			else
+			{	
+				free(nl_p);
+				free(buffer);
 				return (line);
+			}
 		}
 		nl_p = ft_strchr(buffer, '\n');
 		*nl_p = '\0';
