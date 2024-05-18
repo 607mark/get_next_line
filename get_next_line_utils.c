@@ -6,11 +6,31 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:05:36 by mshabano          #+#    #+#             */
-/*   Updated: 2024/05/10 18:05:01 by mshabano         ###   ########.fr       */
+/*   Updated: 2024/05/18 20:11:51 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	*ft_memmove(void *dst, const void *src, size_t n)
+{
+	void	*dst_p;
+
+	dst_p = dst;
+	if ((!dst && !src) || (dst == src))
+		return (dst);
+	if (dst > src)
+	{
+		while (n-- > 0)
+			((unsigned char *)dst)[n] = ((unsigned char *)src)[n];
+	}
+	else
+	{
+		while (n-- > 0)
+			*(unsigned char *)dst++ = *(unsigned char *)src++;
+	}
+	return (dst_p);
+}
 
 char	*ft_strdup(const char *s1)
 {
@@ -25,7 +45,7 @@ char	*ft_strdup(const char *s1)
 	return (p);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2, int len)
 {
 	char	*p;
 	size_t	len_s1;
@@ -42,7 +62,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (p);
 	}
 	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
+	len_s2 = len;
 	p = (char *) malloc((len_s1 + len_s2 + 1) * sizeof (char));
 	if (!p)
 		return (NULL);
@@ -102,16 +122,4 @@ void	ft_bzero(void *s, size_t n)
 		*(temp_s++) = 0;
 		n--;
 	}
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*p;
-
-	p = malloc(count * size);
-	if (!p)
-		return (NULL);
-	else
-		ft_bzero(p, count * size);
-	return (p);
 }
