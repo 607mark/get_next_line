@@ -6,7 +6,7 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:05:36 by mshabano          #+#    #+#             */
-/*   Updated: 2024/05/18 20:11:51 by mshabano         ###   ########.fr       */
+/*   Updated: 2024/05/19 19:46:06 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ char	*ft_strjoin(char const *s1, char const *s2, int len)
 	if (!p)
 		return (NULL);
 	ft_memcpy(p, s1, len_s1);
-	ft_memcpy(p + len_s1, s2, len_s2 + 1);
+	ft_memcpy(p + len_s1, s2, len_s2);
+	*(p+len_s1+len_s2) = '\0';
 	return (p);
 }
 

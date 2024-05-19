@@ -19,5 +19,5 @@ size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
 
 #ifndef BUFFER_SIZE
 
-# define BUFFER_SIZE 3
+# define BUFFER_SIZE 1024
 #endif
