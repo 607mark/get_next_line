@@ -6,7 +6,7 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 18:33:12 by mshabano          #+#    #+#             */
-/*   Updated: 2024/05/20 18:37:25 by mshabano         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:38:53 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # endif
 
 # include <stdlib.h>
-# include <limits.h>
 # include <unistd.h>
 
 char	*get_next_line(int fd);
