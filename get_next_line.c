@@ -6,7 +6,7 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:02:46 by mshabano          #+#    #+#             */
-/*   Updated: 2024/05/20 18:41:20 by mshabano         ###   ########.fr       */
+/*   Updated: 2024/05/20 21:29:47 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,10 @@ static ssize_t	read_file(int fd, char *buffer, char **line)
 	bytes_read = read(fd, buffer, BUFFER_SIZE);
 	if (bytes_read == -1)
 		free(*line);
-	if (bytes_read == 0)
+	if (bytes_read == 0 && **line == '\0')
 	{
-		if (**line == '\0')
-		{
-			free(*line);
-			return (-1);
-		}
+		free(*line);
+		return (-1);
 	}
 	return (bytes_read);
 }
