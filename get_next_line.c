@@ -6,7 +6,7 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:02:46 by mshabano          #+#    #+#             */
-/*   Updated: 2024/05/22 21:57:30 by mshabano         ###   ########.fr       */
+/*   Updated: 2024/05/22 22:28:10 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	initialize(char **line, char **nl_p, char *buffer, int fd)
 {
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX)
 		return (0);
 	*line = NULL;
 	*nl_p = find_nl(buffer);
@@ -35,15 +35,13 @@ static ssize_t	read_file(int fd, char *buffer, char **line)
 	return (bytes_read);
 }
 
-#include <stdio.h>
-
 char	*get_next_line(int fd)
 {
 	static char		buffer[BUFFER_SIZE + 1];
 	char			*line;
 	char			*nl_p;
 	ssize_t			bytes_read;
-	
+
 	if (!initialize(&line, &nl_p, buffer, fd))
 		return (NULL);
 	while (nl_p == NULL)

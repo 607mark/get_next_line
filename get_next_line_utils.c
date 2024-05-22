@@ -6,7 +6,7 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:05:36 by mshabano          #+#    #+#             */
-/*   Updated: 2024/05/22 21:57:28 by mshabano         ###   ########.fr       */
+/*   Updated: 2024/05/22 22:27:47 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	copy_mem(char *dst, char *src, size_t n)
 {
-	while(n--)
+	while (n--)
 		*(dst++) = *(src++);
 }
 
@@ -23,17 +23,17 @@ char	*join_gnl(char *s1, char *s2, int len)
 	char	*p;
 	size_t	len_s1;
 
-	if(!s1)
+	if (!s1)
 		len_s1 = 0;
 	else
 		len_s1 = ft_strlen(s1);
 	p = (char *) malloc((len_s1 + len + 1) * sizeof (char));
 	if (!p)
 	{
-		free(s1);
+		free (s1);
 		return (NULL);
 	}
-	copy_mem(p , s1, len_s1);
+	copy_mem(p, s1, len_s1);
 	copy_mem(p + len_s1, s2, len);
 	*(p + len_s1 + len) = '\0';
 	if (s1)
@@ -53,10 +53,10 @@ size_t	ft_strlen(const char *s)
 
 char	*find_nl(char *s)
 {
-	while(*s)
+	while (*s)
 	{
-		if(*s == '\n')
-			return(s);
+		if (*s == '\n')
+			return (s);
 		s++;
 	}
 	return (NULL);
