@@ -6,54 +6,38 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:05:36 by mshabano          #+#    #+#             */
-/*   Updated: 2024/05/20 18:37:59 by mshabano         ###   ########.fr       */
+/*   Updated: 2024/05/22 21:57:28 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t n)
+void	copy_mem(char *dst, char *src, size_t n)
 {
-	void	*dst_p;
-
-	dst_p = dst;
-	if ((!dst && !src) || (dst == src))
-		return (dst);
-	if (dst > src)
-	{
-		while (n-- > 0)
-			((unsigned char *)dst)[n] = ((unsigned char *)src)[n];
-	}
-	else
-	{
-		while (n-- > 0)
-			*(unsigned char *)dst++ = *(unsigned char *)src++;
-	}
-	return (dst_p);
+	while(n--)
+		*(dst++) = *(src++);
 }
 
-char	*strjoin_gnl(char *s1, char *s2, int len)
+char	*join_gnl(char *s1, char *s2, int len)
 {
 	char	*p;
 	size_t	len_s1;
-	size_t	len_s2;
 
-	if (!s1 || !s2)
-	{
-		return (NULL);
-	}
-	len_s1 = ft_strlen(s1);
-	len_s2 = len;
-	p = (char *) malloc((len_s1 + len_s2 + 1) * sizeof (char));
+	if(!s1)
+		len_s1 = 0;
+	else
+		len_s1 = ft_strlen(s1);
+	p = (char *) malloc((len_s1 + len + 1) * sizeof (char));
 	if (!p)
 	{
 		free(s1);
 		return (NULL);
 	}
-	ft_memmove(p, s1, len_s1);
-	ft_memmove(p + len_s1, s2, len_s2);
-	*(p + len_s1 + len_s2) = '\0';
-	free(s1);
+	copy_mem(p , s1, len_s1);
+	copy_mem(p + len_s1, s2, len);
+	*(p + len_s1 + len) = '\0';
+	if (s1)
+		free(s1);
 	return (p);
 }
 
@@ -67,19 +51,14 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*find_nl(char *s)
 {
-	unsigned int	i;
-
-	i = 0;
-	while (s[i] != '\0')
+	while(*s)
 	{
-		if (s[i] == (char)c)
-			return ((char *)s + i);
-		i++;
+		if(*s == '\n')
+			return(s);
+		s++;
 	}
-	if (s[i] == (char)c)
-		return ((char *)s + i);
 	return (NULL);
 }
 
