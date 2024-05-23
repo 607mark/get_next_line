@@ -6,7 +6,7 @@
 /*   By: mshabano <mshabano@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 18:05:36 by mshabano          #+#    #+#             */
-/*   Updated: 2024/05/22 22:27:47 by mshabano         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:52:17 by mshabano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void	copy_mem(char *dst, char *src, size_t n)
 {
-	while (n--)
-		*(dst++) = *(src++);
+	if (dst && src)
+	{
+		while (n--)
+			*(dst++) = *(src++);
+	}
 }
 
 char	*join_gnl(char *s1, char *s2, int len)
@@ -30,7 +33,8 @@ char	*join_gnl(char *s1, char *s2, int len)
 	p = (char *) malloc((len_s1 + len + 1) * sizeof (char));
 	if (!p)
 	{
-		free (s1);
+		if (s1)
+			free (s1);
 		return (NULL);
 	}
 	copy_mem(p, s1, len_s1);
