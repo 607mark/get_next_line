@@ -1,1 +1,3 @@
+The `get_next_line` project implements a function that reads a line from a given file descriptor. The function, `get_next_line(int fd)`, returns the next line read from the file or standard input, including the newline character if present. It returns `NULL` when there is nothing more to read or if an error occurs. The project consists of `get_next_line.c`, `get_next_line_utils.c`, and `get_next_line.h`, utilizing `read`, `malloc`, and `free` for its operations. This function allows for efficient, line-by-line reading of text files.
+
 ![1000023748](https://github.com/607mark/get_next_line/assets/40577872/417a0c9d-e963-4385-a149-a62ba98b78f5)
