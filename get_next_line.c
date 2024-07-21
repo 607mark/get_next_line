@@ -14,7 +14,7 @@
 
 static int	initialize(char **line, char **nl_p, char *buffer, int fd)
 {
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX)
+	if (fd < 0)
 		return (0);
 	*line = NULL;
 	*nl_p = find_nl(buffer);
