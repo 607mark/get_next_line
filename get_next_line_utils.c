@@ -13,12 +13,9 @@
 #include "get_next_line.h"
 
 void	copy_mem(char *dst, char *src, size_t n)
-{
-	if (dst && src)
-	{
+{	
 		while (n--)
 			*(dst++) = *(src++);
-	}
 }
 
 char	*join_gnl(char *s1, char *s2, int len)
